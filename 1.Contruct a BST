@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct node{
+int data;
+struct node* left;
+struct node* right;
+node(int d,struct node* lt,struct node* rt){
+this->data=d;
+this->left=lt;
+this->right=rt;
+}
+};
+node* constructBST(int arr[],int low,int high){
+if(low>high)
+return NULL;
+int mid=(low+high)/2;
+int val=arr[mid];
+node *lc=constructBST(arr,low,mid-1);
+node *rc=constructBST(arr,mid+1,high);
+node *temp=new node(val,lc,rc);
+return temp;
+}
+void preorder(node *temp){
+    if(temp==NULL)
+    return;
+    if(temp->left==NULL&&temp->right==NULL)
+    cout<<". <-"<<temp->data<<" .->"<<endl;
+    else if(temp->left==NULL)
+    cout<<". <-"<<temp->data<<"->"<<temp->right->data<<endl;
+    else if(temp->right==NULL)
+    cout<<temp->left->data<<"<-"<<temp->data<<" .->"<<endl;
+    else
+    cout<<temp->left->data<<"<-"<<temp->data<<"->"<<temp->right->data<<endl;
+    preorder(temp->left);
+    preorder(temp->right);
+    
+}
+int main() {
+	// your code goes here
+	int arr[8]={
+	    12,25,37,50,62,75,87,99
+	};
+	node* ans=constructBST(arr,0,7);
+	preorder(ans);
+	
+	return 0;
+}
+
+
+
+OUTPUT : 
+
+
+
+25<-50->75
+12<-25->37
+. <-12 .->
+. <-37 .->
+62<-75->87
+. <-62 .->
+. <-87->99
+. <-99 .->
