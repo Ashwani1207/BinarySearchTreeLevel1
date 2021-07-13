@@ -1,0 +1,21 @@
+int min_val(node *temp){
+    if(temp->left!=NULL)
+        return min_val(temp->left);
+    else
+    return temp->data;
+}
+int max_val(node *temp){
+    if(temp->right!=NULL)
+        return max_val(temp->right);
+    return temp->data;
+}
+bool find(node *temp,int v){
+    if(temp==NULL)
+    return false;
+    if(v>temp->data)
+    return find(temp->right,v);
+    else if(v<temp->data)
+    return find(temp->left,v);
+    else
+    return true;
+}
