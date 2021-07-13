@@ -1,0 +1,76 @@
+Appraoch 1: Getting  the last node where insertion would take place
+Used two function 
+createhelper function: return the node at which insertion take place 
+Create function simply check the value to be inserted is greater than or smaller than then it will insert at that place
+
+
+node* createhelper(node *temp,int v){
+    if(temp->left==NULL||temp->right==NULL)
+    return temp;
+    if(v>temp->data)
+    return createhelper(temp->right,v);
+    else if(v<temp->data)
+    return createhelper(temp->left,v);
+}
+void create(node *temp,int v)
+{
+    node *ans1=createhelper(temp,v);
+    node *nn=new node(v,NULL,NULL);
+    if(ans1->data>v)
+    {
+       
+        ans1->left=nn;
+    }
+    else{
+        
+        
+        ans1->right=nn;
+    }
+}
+
+
+
+
+
+Approch 2 : I this when we find null create a node and already receving that recursive call in left or right of that node
+
+
+
+node* addition(node *temp,int v){
+    if(temp==NULL){
+     node *nw=new node(v,NULL,NULL);
+     return nw;
+    }
+    if(v>temp->data)
+    temp->right=addition(temp->right,v);
+    else if(v<temp->data,v)
+    temp->left=addition(temp->left,v);
+    else{
+        
+    }
+    return temp;
+}
+
+
+
+
+
+OUTOUT : 
+
+
+4<-8->11
+2<-4->6
+. <-2 .->
+. <-6 .->
+9<-11->12
+. <-9 .->
+. <-12 .->
+NEW
+4<-8->11
+2<-4->6
+. <-2 .->
+. <-6 .->
+9<-11->12
+. <-9 .->
+. <-12->118
+. <-118 .->
