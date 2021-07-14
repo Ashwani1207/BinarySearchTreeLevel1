@@ -122,19 +122,31 @@ node* deletenode(node *temp,int v){
    return temp; 
     
 }
+static int s=0;
+void replacewithsum(node *temp){
+    if(temp==NULL)
+    return;
+    replacewithsum(temp->right);
+    int val_to_add=temp->data;
+    temp->data=s;
+    s+=val_to_add;
+    cout<<temp->data<<endl;
+    replacewithsum(temp->left);
+}
 int main()
 {
 	// your code goes here
 	int arr[7]={
-	    2,4,6,8,9,11,12
+	    12,25,37,50,62,75,87
 	};
 	node *ans=constructBST(arr,0,6);
 // 	cout<<min_val(ans)<<endl;
 // 	cout<<max_val(ans)<<endl;
-preorder(ans);
-node *nans=deletenode(ans,12);
-cout<<"NEW"<<endl;
-preorder(nans);
+replacewithsum(ans);
+ preorder(ans);
+// node *nans=deletenode(ans,12);
+// cout<<"NEW"<<endl;
+// preorder(nans);
 // create(ans,1);
 // cout<<"NEW"<<endl;
 // preorder(ans);
