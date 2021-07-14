@@ -1,0 +1,12 @@
+int lca(node *temp,int d1,int d2){
+    
+    if(d1<temp->data&&d2<temp->data){
+        return lca(temp->left,d1,d2);
+    }
+    else if(d1>temp->data&&d2>temp->data){
+        return lca(temp->right,d1,d2);
+    }
+    else{
+        return temp->data;
+    }
+}
