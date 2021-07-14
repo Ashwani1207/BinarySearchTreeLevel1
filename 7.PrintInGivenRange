@@ -1,0 +1,24 @@
+void printinrange(node *temp,int lowerlimit,int upperlimit){
+    if(temp==NULL)
+    return;
+    printinrange(temp->left,lowerlimit,upperlimit);
+    if(temp->data>=lowerlimit&&temp->data<=upperlimit)
+    cout<<temp->data<<" ";
+    printinrange(temp->right,lowerlimit,upperlimit);
+}
+int main(){
+int arr[7]={
+	    12,25,37,50,62,75,87
+	};
+	node *ans=constructBST(arr,0,6);
+printinrange(ans,12,75);
+
+
+return 0;
+}
+
+
+OUTPUT:
+
+12 25 37 50 62 75 
+
