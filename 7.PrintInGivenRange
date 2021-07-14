@@ -1,10 +1,15 @@
 void printinrange(node *temp,int lowerlimit,int upperlimit){
     if(temp==NULL)
     return;
+    if(temp->data>lowerlimit&&temp->data>upperlimit)
     printinrange(temp->left,lowerlimit,upperlimit);
-    if(temp->data>=lowerlimit&&temp->data<=upperlimit)
+    else if(temp->data<lowerlimit&&temp->data<upperlimit)
+    printinrange(temp->right,lowerlimit,upperlimit);
+    else{
+          printinrange(temp->left,lowerlimit,upperlimit);
     cout<<temp->data<<" ";
     printinrange(temp->right,lowerlimit,upperlimit);
+    }
 }
 int main(){
 int arr[7]={
