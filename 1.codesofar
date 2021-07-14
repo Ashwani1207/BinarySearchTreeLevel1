@@ -1,0 +1,143 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct node{
+int data;
+struct node* left;
+struct node* right;
+node(int d,struct node* lt,struct node* rt){
+this->data=d;
+this->left=lt;
+this->right=rt;
+}
+};
+node* constructBST(int arr[],int low,int high){
+if(low>high)
+return NULL;
+int mid=(low+high)/2;
+int val=arr[mid];
+node *lc=constructBST(arr,low,mid-1);
+node *rc=constructBST(arr,mid+1,high);
+node *temp=new node(val,lc,rc);
+return temp;
+}
+void preorder(node *temp){
+    if(temp==NULL)
+    return;
+    if(temp->left==NULL&&temp->right==NULL)
+    cout<<". <-"<<temp->data<<" .->"<<endl;
+    else if(temp->left==NULL)
+    cout<<". <-"<<temp->data<<"->"<<temp->right->data<<endl;
+    else if(temp->right==NULL)
+    cout<<temp->left->data<<"<-"<<temp->data<<" .->"<<endl;
+    else
+    cout<<temp->left->data<<"<-"<<temp->data<<"->"<<temp->right->data<<endl;
+    preorder(temp->left);
+    preorder(temp->right);
+    
+}
+int min_val(node *temp){
+    if(temp->left!=NULL)
+        return min_val(temp->left);
+    else
+    return temp->data;
+}
+int max_val(node *temp){
+    if(temp->right!=NULL)
+        return max_val(temp->right);
+    return temp->data;
+}
+bool find(node *temp,int v){
+    if(temp==NULL)
+    return false;
+    if(v>temp->data)
+    return find(temp->right,v);
+    else if(v<temp->data)
+    return find(temp->left,v);
+    else
+    return true;
+}
+node* createhelper(node *temp,int v){
+    if(temp->left==NULL||temp->right==NULL)
+    return temp;
+    if(v>temp->data)
+    return createhelper(temp->right,v);
+    else if(v<temp->data)
+    return createhelper(temp->left,v);
+}
+void create(node *temp,int v)
+{
+    node *ans1=createhelper(temp,v);
+    node *nn=new node(v,NULL,NULL);
+    if(ans1->data>v)
+    {
+       
+        ans1->left=nn;
+    }
+    else{
+        
+        
+        ans1->right=nn;
+    }
+}
+node* addition(node *temp,int v){
+    if(temp==NULL){
+     node *nw=new node(v,NULL,NULL);
+     return nw;
+    }
+    if(v>temp->data)
+    temp->right=addition(temp->right,v);
+    else if(v<temp->data,v)
+    temp->left=addition(temp->left,v);
+    else{
+        
+    }
+    return temp;
+}
+node* deletenode(node *temp,int v){
+    if(temp==NULL){
+     return NULL;
+    }
+    if(v>temp->data)
+    temp->right=deletenode(temp->right,v);
+    else if(v<temp->data,v)
+    temp->left=deletenode(temp->left,v);
+    else{
+       if(temp->left!=NULL&&temp->right!=NULL){
+           int lmax=max_val(temp->left);
+           temp->data=lmax;
+           temp->left=deletenode(temp->left,lmax);
+           return temp;
+       }
+       else if(temp->left!=NULL){
+           return temp->left;
+       }
+       else if(temp->right!=NULL){
+           return temp->right;
+       }
+       else{
+           return NULL;
+       }
+     
+    }
+   return temp; 
+    
+}
+int main()
+{
+	// your code goes here
+	int arr[7]={
+	    2,4,6,8,9,11,12
+	};
+	node *ans=constructBST(arr,0,6);
+// 	cout<<min_val(ans)<<endl;
+// 	cout<<max_val(ans)<<endl;
+preorder(ans);
+node *nans=deletenode(ans,12);
+cout<<"NEW"<<endl;
+preorder(nans);
+// create(ans,1);
+// cout<<"NEW"<<endl;
+// preorder(ans);
+	
+	return 0;
+}
